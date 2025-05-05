@@ -2,6 +2,7 @@ import os
 from cryptography.hazmat.primitives.asymmetric import ec
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.backends import default_backend
+from core.settings import PEM_PASS
 
 
 def set_permission_for_files(path, mode):
@@ -20,7 +21,7 @@ def generate_secrets():
     private_pem = private_key.private_bytes(
         encoding=serialization.Encoding.PEM,
         format=serialization.PrivateFormat.PKCS8,
-        encryption_algorithm=serialization.BestAvailableEncryption(b'moo123QWE$')
+        encryption_algorithm=serialization.BestAvailableEncryption(PEM_PASS)
     )
 
     public_pem = public_key.public_bytes(
