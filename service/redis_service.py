@@ -73,9 +73,10 @@ class TokenService(RedisDB):
             saved_refresh = user_data.split(':')[-1]
             saved_refresh_payload = jwt_decoder(saved_refresh)
 
-            if payload == saved_refresh_payload:
+            if payload['sub'] == saved_refresh_payload['sub'] and payload['jti'] == saved_refresh_payload['jti']:
                 return saved_refresh_payload['sub']
             else:
                 return 'invalid_token'
-        except:
+        except Exception as ex:
+            print(ex)
             return 'invalid_token'
